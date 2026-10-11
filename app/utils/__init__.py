@@ -5,7 +5,7 @@ Este paquete contiene funciones de utilidad compartidas entre módulos,
 incluyendo configuración, autenticación, logging y helpers generales.
 """
 
-from .config import get_settings, Settings
+from .config import get_config as get_settings, Config as Settings
 from .auth import (
     crear_token_jwt, verificar_token_jwt, autenticar_usuario,
     verificar_acceso_rol, verificar_acceso_estudiante_propio,
