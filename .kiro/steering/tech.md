@@ -1,3 +1,5 @@
+> Alcance vigente de S7: Laravel 12 en web/, MySQL/MariaDB, VS Code y consultas Eloquent de solo lectura. Ver docs/adr/adr_004_alcance_laboratorio_s7.md y docs/arquitectura/s7.md. Las alternativas históricas que siguen no gobiernan esta rama.
+
 ---
 # Stack y reglas técnicas
 - Framework: [DECISIÓN DE ADR-001], versión estable vigente [VERIFICAR].

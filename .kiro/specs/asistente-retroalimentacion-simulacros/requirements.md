@@ -28,6 +28,10 @@ El **Asistente de Retroalimentación para Simulacros de Admisión del CNI** es u
 
 ---
 
+## Identificadores de historia para S7
+
+Se asigna el alias H-01 al Requisito 1, H-02 al Requisito 2, y así sucesivamente hasta H-11. Se conservan las historias y criterios originales. La adaptación temporal Laravel/MySQL/Eloquent para S7, las sesiones de archivo y los criterios pospuestos están en docs/adr/adr_004_alcance_laboratorio_s7.md. No se declara cumplimiento de MCP ni Gemini en esta rama.
+
 ## Requirements
 
 ### Requisito 1: Autenticación y control de acceso por rol
