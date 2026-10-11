@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-01, H-04, H-07, H-11
 
 namespace App\Models;
@@ -9,9 +10,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Usuario extends Authenticatable
 {
     protected $table = 'usuario';
+
     protected $primaryKey = 'usuario_id';
+
     public $timestamps = false;
+
     protected $guarded = ['*'];
+
     protected $hidden = ['contrasena_hash'];
 
     protected function casts(): array

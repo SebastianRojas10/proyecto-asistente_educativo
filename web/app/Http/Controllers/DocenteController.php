@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-07, H-01, H-03, H-11
 
 namespace App\Http\Controllers;
@@ -13,6 +14,7 @@ class DocenteController extends Controller
     {
         abort_unless($request->user()->rol === 'docente', 403);
         $grupos = $request->user()->gruposDocente()->where('grupo.activo', 1)->orderBy('codigo_grupo')->get();
+
         return view('grupos', compact('grupos'));
     }
 
@@ -34,6 +36,7 @@ class DocenteController extends Controller
         if ($resultado) {
             usort($resultado['temas'], fn ($a, $b) => (($b['error'] ?? -1) <=> ($a['error'] ?? -1)) ?: strcmp($a['nombre'], $b['nombre']));
         }
+
         return view('grupal', compact('grupo', 'disponibles', 'seleccionado', 'resultado'));
     }
 }

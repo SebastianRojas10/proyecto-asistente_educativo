@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-01, H-11
 
 namespace App\Http\Controllers;
@@ -43,6 +44,7 @@ class AccesoController extends Controller
         $request->session()->put('inicio_sesion', now()->timestamp);
         RateLimiter::clear($limite);
         Log::info('s7.inicio_sesion', ['usuario_id' => $usuario->getKey(), 'rol' => $usuario->rol]);
+
         return redirect()->route('inicio');
     }
 
@@ -51,6 +53,7 @@ class AccesoController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('login');
     }
 

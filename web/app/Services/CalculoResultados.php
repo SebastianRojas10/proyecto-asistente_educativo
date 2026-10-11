@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-03, H-04, H-07, H-09
 
 namespace App\Services;
@@ -20,6 +21,7 @@ class CalculoResultados
         foreach ($preguntas as $p) {
             if (! in_array($p['correcta'], $opciones, true)) {
                 $omitidos++;
+
                 continue;
             }
             $porPregunta[$p['id']] = $p;
@@ -33,6 +35,7 @@ class CalculoResultados
             if (! isset($porPregunta[$r['pregunta_id']]) || ! in_array($r['usuario_id'], $usuarios, true)
                 || ! in_array($r['opcion'], $opciones, true) || isset($vistos[$clave])) {
                 $omitidos++;
+
                 continue;
             }
             $vistos[$clave] = true;
@@ -50,6 +53,7 @@ class CalculoResultados
             $tema['error_institucional'] = self::porcentaje($tema['incorrectas'], $tema['respondidas'], 2);
         }
         unset($tema);
+
         return ['temas' => array_values($temas), 'participantes' => $n, 'preguntas' => count($porPregunta),
             'correctas' => array_sum(array_column($temas, 'correctas')), 'omitidos' => $omitidos];
     }

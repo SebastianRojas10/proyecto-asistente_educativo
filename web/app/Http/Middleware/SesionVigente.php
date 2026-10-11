@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-01, H-11
 
 namespace App\Http\Middleware;
@@ -16,8 +17,10 @@ class SesionVigente
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
+
             return redirect()->route('login')->with('aviso', 'Tu sesión ha expirado. Inicia sesión nuevamente.');
         }
+
         return $next($request);
     }
 }

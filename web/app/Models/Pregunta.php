@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-03, H-04, H-07, H-09
 
 namespace App\Models;
@@ -10,8 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Pregunta extends Model
 {
     protected $table = 'pregunta';
+
     protected $primaryKey = 'pregunta_id';
+
     public $timestamps = false;
+
     protected $guarded = ['*'];
 
     public function tema(): BelongsTo

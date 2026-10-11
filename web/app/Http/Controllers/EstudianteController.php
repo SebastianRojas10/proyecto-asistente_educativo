@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-04, H-03, H-01, H-11
 
 namespace App\Http\Controllers;
@@ -30,6 +31,7 @@ class EstudianteController extends Controller
             ])->values()->all();
             $resultado['global'] = CalculoResultados::porcentaje($resultado['correctas'], $resultado['preguntas']) ?? 0;
         }
+
         return view('estudiante', compact('usuario', 'disponibles', 'seleccionado', 'resultado'));
     }
 }

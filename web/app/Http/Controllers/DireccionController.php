@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-09, H-01, H-11
 
 namespace App\Http\Controllers;
@@ -41,6 +42,7 @@ class DireccionController extends Controller
         if ($resultado) {
             usort($resultado['temas'], fn ($a, $b) => (($b['error_institucional'] ?? -1) <=> ($a['error_institucional'] ?? -1)) ?: strcmp($a['nombre'], $b['nombre']));
         }
+
         return view('institucional', compact('disponibles', 'seleccionado', 'resultado', 'filas', 'excluidos'));
     }
 }

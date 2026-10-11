@@ -12,7 +12,7 @@
 <header class="cabecera">
     <a class="marca" href="{{ route('inicio') }}"><span class="monograma">CNI</span><span>Asistente educativo<small>Simulacros de admisión</small></span></a>
     @auth
-        <nav aria-label="Principal"><a href="{{ route('inicio') }}">Mis reportes</a><span class="rol">{{ ucfirst(auth()->user()->rol) }}</span>
+        <nav aria-label="Principal"><a href="{{ route('inicio') }}">Mis reportes</a><span class="rol">{{ auth()->user()->rol === 'direccion' ? 'Dirección' : ucfirst(auth()->user()->rol) }}</span>
         <form action="{{ route('salir') }}" method="post">@csrf<button class="salir" type="submit">Cerrar sesión</button></form></nav>
     @endauth
 </header>

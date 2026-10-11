@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-11
 
 namespace App\Http\Middleware;
@@ -21,6 +22,7 @@ class Privacidad
             Log::info('s7.consulta', ['usuario_id' => $request->user()->getKey(), 'rol' => $request->user()->rol,
                 'ruta' => $request->route()?->getName(), 'estado' => $respuesta->getStatusCode()]);
         }
+
         return $respuesta;
     }
 }

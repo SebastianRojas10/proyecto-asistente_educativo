@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-03, H-04, H-07, H-09, H-11
 
 namespace App\Services;
@@ -24,6 +25,7 @@ class Reportes
         if ($resumen['omitidos']) {
             Log::warning('s7.datos_inconsistentes', ['cantidad' => $resumen['omitidos']]);
         }
+
         return $resumen;
     }
 }

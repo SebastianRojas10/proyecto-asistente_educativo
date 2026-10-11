@@ -1,4 +1,5 @@
 <?php
+
 // Historia: H-07, H-09, H-11
 
 namespace App\Models;
@@ -9,8 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Grupo extends Model
 {
     protected $table = 'grupo';
+
     protected $primaryKey = 'grupo_id';
+
     public $timestamps = false;
+
     protected $guarded = ['*'];
 
     public function estudiantes(): BelongsToMany

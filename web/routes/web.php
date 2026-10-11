@@ -1,10 +1,11 @@
 <?php
+
 // Historia: H-01, H-04, H-07, H-09, H-11
 
 use App\Http\Controllers\AccesoController;
-use App\Http\Controllers\EstudianteController;
-use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\EstudianteController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/inicio');
