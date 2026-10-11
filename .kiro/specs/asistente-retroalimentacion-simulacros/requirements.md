@@ -4,13 +4,15 @@
 
 El **Asistente de Retroalimentación para Simulacros de Admisión del CNI** es una aplicación web que automatiza el procesamiento y la clasificación de los resultados de los simulacros de admisión del Colegio Nacional de Ica (CNI). El sistema permite a los estudiantes de 5.º de secundaria consultar sus errores por tema y conocer su evolución entre simulacros; a los docentes, revisar el rendimiento de su grupo y de estudiantes individuales; y a la dirección de la institución, acceder a un resumen agregado por nivel. Todo acceso a la base de datos se realiza exclusivamente a través del servidor MCP de solo lectura construido en la semana 4, y todos los datos empleados durante el desarrollo son simulados en cumplimiento de la Ley N.º 29733 de Protección de Datos Personales.
 
+> **PENDIENTE:** La fuente y justificación de los umbrales numéricos de tiempo de respuesta, expiración de sesión y timeout de servicios debe ser confirmada por el equipo. Hasta entonces, esos valores son objetivos escritos en este documento, no métricas verificadas.
+
 ---
 
 ## Glossary
 
-- **Asistente**: Sistema web desarrollado en FastAPI que recibe consultas en lenguaje natural o por interfaz gráfica, las procesa con apoyo de la Gemini API y responde con información de retroalimentación.
-- **Servidor_MCP**: Servidor MCP de solo lectura construido en la semana 4, único punto de acceso autorizado a la base de datos SQLite de resultados.
-- **Base_de_Datos**: Base de datos SQLite que contiene datos simulados de estudiantes, simulacros, respuestas y temas.
+- **Asistente**: Sistema web cuyo framework está **PENDIENTE** de resolución en ADR-001. Recibe consultas por interfaz gráfica y, cuando se habilite la integración de Unidad 3, en lenguaje natural con apoyo de la Gemini API.
+- **Servidor_MCP**: Servidor MCP de solo lectura, único punto de acceso autorizado al almacén de resultados. `product.md` lo ubica en la semana 4; el encargo de auditoría lo identifica como Unidad 1, mientras `tech.md` posterga la implementación de MCP hasta Unidad 3. La equivalencia entre semana/unidad y el calendario de integración quedan **PENDIENTE**.
+- **Base_de_Datos**: Almacén de resultados con datos simulados de estudiantes, simulacros, respuestas y temas. El motor queda **PENDIENTE**: `tasks.md` y `data/schema.sql` nombran SQLite, mientras que `tech.md` y el modelo físico nombran MySQL/MariaDB.
 - **Estudiante**: Usuario de 5.º de secundaria del CNI que consulta sus propios resultados y retroalimentación.
 - **Docente**: Usuario autenticado que consulta resultados de los estudiantes de sus grupos asignados.
 - **Dirección**: Usuario autenticado que pertenece a la dirección de la institución y solo accede a datos agregados por nivel.
@@ -19,8 +21,8 @@ El **Asistente de Retroalimentación para Simulacros de Admisión del CNI** es u
 - **Reporte_Grupal**: Documento de retroalimentación agregado generado para el grupo completo de un docente respecto a un simulacro.
 - **Resumen_Institucional**: Vista agregada de resultados por tema a nivel de todos los grupos de 5.º de secundaria, accesible únicamente para la Dirección.
 - **Tema**: Área del conocimiento evaluada en el simulacro (p. ej., Matemáticas, Comprensión Lectora, Ciencias).
-- **Porcentaje_de_Aciertos**: Cociente entre las respuestas correctas y el total de preguntas de un tema, expresado en porcentaje entero.
-- **Variación_de_Puntaje**: Diferencia absoluta y relativa entre el puntaje de un simulacro y el inmediatamente anterior para el mismo estudiante y tema.
+- **Porcentaje_de_Aciertos**: Cociente entre las respuestas correctas y el total de preguntas de un tema, expresado con un decimal, conforme a R3.1.
+- **Variación_de_Puntaje**: Diferencia absoluta en puntos entre el puntaje de un simulacro y el inmediatamente anterior para el mismo estudiante y tema, conforme a R5.1. **PENDIENTE:** confirmar si también se requiere una variación relativa; ningún criterio la define.
 - **Gemini_API**: API de Google utilizada para interpretar consultas en lenguaje natural y generar respuestas de retroalimentación; la clave de acceso se almacena únicamente en variables de entorno.
 - **Autenticador**: Módulo del Asistente responsable de verificar la identidad y el rol del usuario antes de conceder acceso a cualquier funcionalidad.
 
@@ -92,6 +94,8 @@ El **Asistente de Retroalimentación para Simulacros de Admisión del CNI** es u
 **Historia de usuario:** Como estudiante, quiero conocer mi puntaje y comparación con simulacros anteriores, para saber si estoy mejorando.
 
 #### Criterios de aceptación
+
+> **PENDIENTE:** Confirmar si la comparación debe seleccionar los dos últimos simulacros por fecha de registro (como indica R5.1) o por fecha de aplicación (como identifica R4.1 el último simulacro). Se conserva la regla literal de cada criterio hasta resolverlo.
 
 1. WHEN un Estudiante autenticado con al menos dos simulacros registrados solicita su comparación de desempeño, THE Asistente SHALL calcular la Variación_de_Puntaje por Tema como (puntaje_simulacro_más_reciente − puntaje_simulacro_inmediatamente_anterior) en puntos absolutos por Tema, donde los simulacros se ordenan cronológicamente por fecha de registro descendente, y SHALL mostrar el resultado citando la fecha de aplicación de cada simulacro en un tiempo menor a 5 segundos.
 2. WHEN el Asistente muestra la comparación de desempeño, THE Asistente SHALL etiquetar cada Tema con «Mejora» si la Variación_de_Puntaje es mayor a cero, «Retroceso» si es menor a cero, o «Sin cambio» si es igual a cero.
@@ -188,3 +192,11 @@ El **Asistente de Retroalimentación para Simulacros de Admisión del CNI** es u
 3. WHEN el Asistente ejecuta cualquier consulta que accede a datos de Estudiantes a través del Servidor_MCP, THE Asistente SHALL registrar en el log del sistema el identificador del usuario solicitante, el rol activo, el tipo de consulta y la marca de tiempo, sin registrar el contenido de los resultados individuales devueltos.
 4. IF un usuario intenta ejecutar una operación de escritura o modificación sobre la Base_de_Datos a través del Servidor_MCP, THEN THE Servidor_MCP SHALL rechazar la operación, devolver un mensaje de error al Asistente indicando que la operación no está permitida, y THE Asistente SHALL registrar el intento en el log del sistema con el identificador del usuario y la marca de tiempo.
 5. THE Asistente SHALL presentar todos los datos de Estudiantes en cualquier vista del sistema utilizando únicamente el identificador anonimizado definido en la Base_de_Datos de datos simulados; el Asistente no SHALL exponer nombres reales, documentos de identidad ni ningún otro atributo personal identificable en ninguna vista ni en ningún entorno.
+
+---
+
+## Historial de cambios
+
+| Fecha | Hallazgo | Cambio |
+|---|---|---|
+| 2026-10-09 | Contradicciones en las definiciones de `Porcentaje_de_Aciertos` y `Variación_de_Puntaje`; pila y motor de base discrepantes; falta de fuente para umbrales y diferencia en el orden temporal de simulacros. | Alineé las definiciones con los criterios explícitos y señalé como `PENDIENTE` las decisiones de motor, variación relativa, fuente de umbrales y orden temporal, sin cambiar los valores funcionales de los criterios. |

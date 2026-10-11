@@ -2,7 +2,7 @@
 
 Este modelo se deriva de los componentes y modelos nombrados en `design.md` y de las historias de `requirements.md`. Tiene 10 tablas. Las tablas `usuario`, `simulacro`, `respuesta` y `tema` representan las entidades base; las otras seis se agregan para respaldar explícitamente historias de grupos, preguntas y auditoría.
 
-El diseño indica MySQL en XAMPP, mientras que algunos requisitos describen SQLite/FastAPI y un servidor MCP. El DDL adjunto sigue el destino solicitado para XAMPP: MariaDB/MySQL. La arquitectura y el mecanismo de acceso a la base deben armonizarse antes de implementar.
+> **PENDIENTE:** El modelo lógico y el DDL adjunto son una propuesta física para MariaDB/MySQL, conforme al steering técnico. `tasks.md` y `data/schema.sql` describen SQLite; ambos esquemas físicos son distintos. No ejecutar ni tratar ninguno como modelo aprobado hasta que el equipo resuelva ADR-001 y el motor. Independientemente del motor, el Asistente no accede directamente al almacén de resultados: la regla de producto exige el MCP de solo lectura.
 
 ## 1. Diagrama entidad-relación
 
@@ -134,4 +134,10 @@ La base de datos no puede garantizar por sí sola que `usuario_id` tenga el rol 
 
 El script [`schema.sql`](schema.sql) crea la base `asistente_cni` con `utf8mb4` y `utf8mb4_unicode_ci`, tablas InnoDB, claves foráneas, índices, restricciones `CHECK` y comentarios con el componente propietario. No contiene datos de prueba, procedimientos almacenados ni triggers.
 
-Para ejecutarlo desde XAMPP, iniciar MySQL/MariaDB y abrir el archivo en phpMyAdmin o ejecutarlo desde el cliente SQL. El DDL asume un MariaDB/MySQL que aplique restricciones `CHECK` (por ejemplo, versiones actuales de XAMPP); confirmar la versión instalada antes de desplegar.
+**PENDIENTE:** el DDL MySQL no se debe ejecutar desde XAMPP hasta que el equipo lo elija como esquema canónico y confirme el runtime de base de datos.
+
+## Historial de cambios
+
+| Fecha | Hallazgo | Cambio |
+|---|---|---|
+| 2026-10-09 | El modelo físico MySQL/MariaDB contradice SQLite en requisitos y tareas; hay dos DDL distintos y el diseño previo permitía acceso directo a la base. | Marqué ambos motores/esquemas como candidatos `PENDIENTE` de decisión, aclaré la frontera MCP de solo lectura y evité cambiar el esquema o inventar una migración. |

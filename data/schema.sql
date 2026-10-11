@@ -1,3 +1,5 @@
+-- PENDIENTE: DDL candidato SQLite. El steering y otro schema.sql nombran
+-- MySQL/MariaDB; no ejecutar hasta que el equipo apruebe el motor/esquema.
 -- Esquema de base de datos SQLite para el Asistente de Retroalimentación
 -- Adaptado desde el esquema MySQL original para cumplir con los requisitos
 -- Componente: Base de Datos SQLite con datos simulados
@@ -8,7 +10,8 @@ PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = WAL;
 PRAGMA synchronous = NORMAL;
 PRAGMA temp_store = memory;
-PRAGMA mmap_size = 268435456; -- 256MB
+-- PENDIENTE: confirmar fuente y necesidad del tamaño de mmap antes de usar este ajuste.
+PRAGMA mmap_size = 268435456; -- PENDIENTE: candidato de 256MB, sin fuente de validación.
 
 -- Tabla: usuario
 -- Componente propietario: Modelo Usuario
@@ -237,13 +240,20 @@ GROUP BY s.simulacro_id, s.nombre, s.fecha_aplicacion, s.fecha_registro, s.descr
 -- Configuraciones adicionales de optimización
 PRAGMA optimize;
 
+-- Historial de cambios
+-- 2026-10-09: La cifra de mmap no tenía fuente documentada; marcada PENDIENTE
+-- sin cambiar el esquema SQLite ni sus valores.
+
 -- Comentarios finales
 -- Este esquema SQLite mantiene la funcionalidad del diseño original MySQL
 -- pero adaptado para SQLite con las siguientes modificaciones principales:
 -- 1. INTEGER PRIMARY KEY AUTOINCREMENT en lugar de BIGINT UNSIGNED AUTO_INCREMENT
 -- 2. TEXT en lugar de VARCHAR/ENUM con CHECK constraints para validación
 -- 3. INTEGER para booleanos con CHECK constraints
--- 4. Índices optimizados para las consultas más frecuentes
+-- 4. Índices candidatos; falta validar su necesidad y rendimiento
 -- 5. Vistas para simplificar consultas comunes
--- 6. Configuración PRAGMA para optimización
+-- 6. Configuración PRAGMA candidata, pendiente de validar
 -- 7. Mantiene todas las relaciones y constraints del diseño original
+
+-- Historial de cambios
+-- 2026-10-09: motor SQLite, PRAGMA mmap_size e índices marcados como candidatos pendientes; no hay fuente de rendimiento validada.

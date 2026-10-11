@@ -1,6 +1,6 @@
-# Base de Datos SQLite - Asistente de Retroalimentación CNI
+# Candidato de base de datos SQLite - Asistente de Retroalimentación CNI
 
-Este directorio contiene el esquema y herramientas para la base de datos SQLite del Asistente de Retroalimentación para Simulacros de Admisión del CNI.
+Este directorio contiene un esquema y herramientas candidatos para SQLite. La elección del motor está **PENDIENTE**: los documentos del proyecto también especifican MySQL/MariaDB. No se debe tratar este esquema como motor aprobado.
 
 ## ⚖️ Cumplimiento Legal
 
@@ -36,11 +36,13 @@ Este directorio contiene el esquema y herramientas para la base de datos SQLite 
 
 - **`registro_acceso`** - Log de accesos al sistema sin datos personales
 
-### Vistas Optimizadas
+### Vistas Candidatas
 
 - **`estudiantes_activos`** - Estudiantes con sus grupos activos
 - **`docentes_grupos`** - Docentes con sus grupos asignados
 - **`simulacros_con_estadisticas`** - Simulacros con conteos básicos
+
+La selección y validación de estas vistas está **PENDIENTE**; no hay resultados de pruebas de rendimiento que sustenten una afirmación de optimización.
 
 ## 🚀 Uso
 
@@ -100,21 +102,21 @@ conn.execute("PRAGMA foreign_keys = ON")
 4. **Auditoría**: Registro de accesos sin contenido personal
 5. **Solo Lectura MCP**: Preparado para integración con servidor MCP de solo lectura
 
-## 🔧 Configuración SQLite
+## 🔧 Configuración candidata SQLite (PENDIENTE)
 
-El esquema incluye configuraciones optimizadas:
+La necesidad y los valores de estas opciones deben confirmarse tras aprobar el motor de base de datos y validar la configuración:
 
 ```sql
 PRAGMA foreign_keys = ON;        -- Integridad referencial
 PRAGMA journal_mode = WAL;       -- Mejor concurrencia
 PRAGMA synchronous = NORMAL;     -- Balance rendimiento/durabilidad
 PRAGMA temp_store = memory;      -- Tablas temp en memoria
-PRAGMA mmap_size = 268435456;    -- 256MB memory-mapped I/O
+PRAGMA mmap_size = 268435456;    -- PENDIENTE: valor candidato sin fuente de validación
 ```
 
-## 📈 Índices de Rendimiento
+## 📈 Índices candidatos (PENDIENTE de validación)
 
-Índices optimizados para las consultas más frecuentes:
+Los índices enumerados son candidatos; su necesidad y rendimiento no se han validado:
 
 - Autenticación por usuario y rol
 - Búsqueda de estudiantes por grupo
@@ -132,11 +134,15 @@ PRAGMA mmap_size = 268435456;    -- 256MB memory-mapped I/O
 
 ## 🔄 Próximos Pasos
 
-1. **Ejecutar**: `create_database.py` para crear la estructura
+1. **Ejecutar**: `create_database.py` para crear la estructura, solo después de aprobar SQLite
 2. **Poblar**: Ejecutar `seed_simulados.py` (próxima tarea) para datos de prueba
-3. **Configurar**: Servidor MCP de solo lectura apuntando a esta BD
-4. **Integrar**: Conectar la aplicación FastAPI al servidor MCP
+3. **Configurar**: Servidor MCP de solo lectura apuntando al almacén aprobado, una vez resueltas las decisiones de motor y calendario de integración
+4. **Integrar**: Conectar la aplicación al servidor MCP después de resolver el framework y el calendario de integración
 
 ---
 
 **Cumplimiento Legal**: Este sistema respeta la privacidad de menores de edad según la Ley N.º 29733 utilizando exclusivamente datos simulados durante todo el ciclo de desarrollo y operación.
+
+## Historial de cambios
+
+- 2026-10-09 — Hallazgo: el motor SQLite, el valor de `mmap_size`, las afirmaciones de optimización y el framework FastAPI aparecían como decisiones confirmadas pese a existir conflictos o no tener fuente de validación. Cambio: se etiquetaron como candidatos/PENDIENTE y se condicionó su uso a las decisiones del equipo.

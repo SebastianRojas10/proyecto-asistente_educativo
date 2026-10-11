@@ -49,8 +49,9 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
   - [ ] 4.2 Implementar cliente MCP
     - Crear funciones de consulta: obtener_respuestas_simulacro(), obtener_simulacros_estudiante()
     - Implementar obtener_simulacros_grupo(), obtener_simulacros_institucion()
-    - Manejar timeouts y errores de conexión
-    - _Requisitos: 2.2, 2.3, 2.4_
+    - Usar exclusivamente la frontera MCP para resultados y validar la latencia especificada
+    - Manejar timeouts, errores de conexión y simulacro inexistente
+    - _Requisitos: 2.1, 2.2, 2.3, 2.4, 7.5, 8.4, 9.5, 9.7, 11.2_
   
   - [ ]* 4.3 Escribir pruebas de propiedades para manejo de errores MCP
     - **Propiedad 5: Manejo de errores del Servidor MCP**
@@ -63,7 +64,8 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     - Implementar calcular_porcentaje_aciertos() con precisión de 1 decimal
     - Crear calcular_variacion_puntaje() para comparación entre simulacros
     - Implementar funciones de agregación para reportes grupales e institucionales
-    - _Requisitos: 3.1, 5.1, 7.1, 9.1_
+    - Excluir temas sin preguntas e informar el conteo; no persistir clasificaciones derivadas fuera de la sesión
+    - _Requisitos: 3.1, 3.3, 3.4, 5.1, 7.1, 9.1_
   
   - [ ]* 5.2 Escribir pruebas de propiedades para cálculos
     - **Propiedad 7: Cálculo correcto del Porcentaje de Aciertos**
@@ -75,7 +77,7 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     - Crear ordenar_temas_por_porcentaje_asc() con criterios de empate
     - Implementar ordenar_temas_por_error_desc() para reportes grupales
     - Crear ordenar_simulacros_desc() por fecha
-    - _Requisitos: 3.2, 7.2, 4.1_
+    - _Requisitos: 3.2, 7.2, 4.1, 6.1_
   
   - [ ]* 5.4 Escribir pruebas de propiedades para ordenamiento
     - **Propiedad 8: Ordenamiento de temas en clasificación de errores y orientación**
@@ -83,11 +85,16 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     - **Propiedad 9: Identificación correcta del último simulacro**
     - **Valida: Requisitos 4.1, 8.6**
 
+  - [ ] 5.5 Implementar orientación de refuerzo limitada a priorización
+    - Devolver temas priorizados y manejar historiales incompletos o vacíos
+    - No generar materiales, rutas de aprendizaje ni contenido externo
+    - _Requisitos: 6.1, 6.2, 6.3, 6.4, 6.5_
+
 - [ ] 6. Implementar generadores de reportes
   - [ ] 6.1 Crear generador de reporte individual
     - Implementar generar_reporte_individual() con todos los campos requeridos
     - Manejar casos especiales (estudiante sin simulacros, datos incompletos)
-    - _Requisitos: 4.2, 4.5_
+    - _Requisitos: 4.1, 4.2, 4.5, 5.6, 5.7_
   
   - [ ]* 6.2 Escribir pruebas de propiedades para reportes individuales
     - **Propiedad 10: Completitud del Reporte Individual**
@@ -96,7 +103,8 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
   - [ ] 6.3 Crear generador de reporte grupal
     - Implementar generar_reporte_grupal() con agregación correcta
     - Validar acceso del docente a sus grupos asignados
-    - _Requisitos: 7.1, 7.3, 8.1_
+    - Informar cuando el grupo o el estudiante no tenga resultados y mostrar simulacros disponibles
+    - _Requisitos: 7.1, 7.3, 7.4, 7.5, 8.1, 8.4_
   
   - [ ]* 6.4 Escribir pruebas de propiedades para reportes grupales
     - **Propiedad 12: Agregación correcta del Reporte Grupal**
@@ -105,7 +113,8 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
   - [ ] 6.5 Crear generador de resumen institucional
     - Implementar generar_resumen_institucional() solo con datos agregados
     - Garantizar que no se exponen datos individuales de estudiantes
-    - _Requisitos: 9.1, 9.2, 9.4_
+    - Manejar ausencia de simulacros, grupos excluidos y selección de simulacro disponible
+    - _Requisitos: 9.1, 9.2, 9.4, 9.5, 9.6, 9.7_
   
   - [ ]* 6.6 Escribir pruebas de propiedades para resumen institucional
     - **Propiedad 13: Agregación correcta del Resumen Institucional sin datos individuales**
@@ -116,7 +125,7 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
 
 - [ ] 8. Implementar módulo NLU con Gemini API
   - [ ] 8.1 Crear cliente Gemini API
-    - Implementar wrapper HTTP para Gemini con timeout de 8 segundos
+    - Implementar wrapper HTTP para Gemini con timeout de 8 segundos (**PENDIENTE: confirmar fuente y aprobación del umbral**, según `requirements.md`)
     - Leer GEMINI_API_KEY desde variables de entorno
     - Manejar errores de timeout y códigos HTTP
     - _Requisitos: 10.1, 10.2, 10.3, 10.4_
@@ -125,7 +134,8 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     - Crear función clasificar_intencion() con catálogo por rol
     - Definir enum Intencion con todas las categorías
     - Restringir datos enviados solo a texto y rol
-    - _Requisitos: 10.1, 10.5, 10.6_
+    - Clasificar las intenciones de reporte, comparación y orientación; informar intenciones ambiguas o no reconocidas
+    - _Requisitos: 4.3, 4.4, 5.3, 5.4, 5.5, 6.2, 6.3, 10.1, 10.5, 10.6_
   
   - [ ]* 8.3 Escribir pruebas de propiedades para NLU
     - **Propiedad 14: Orden de llamadas en consultas en lenguaje natural**
@@ -157,22 +167,22 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     - Crear GET /estudiante/reporte para reporte individual
     - Implementar GET /estudiante/comparacion para comparación entre simulacros
     - Crear GET /estudiante/orientacion para orientación de refuerzo
-    - _Requisitos: 4.1, 4.2, 5.1, 6.1_
+    - _Requisitos: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 5.1, 5.3, 5.4, 5.5, 5.6, 5.7, 6.1, 6.2, 6.3, 6.4, 6.5_
   
   - [ ] 10.3 Implementar routers por rol - Docente
     - Crear GET /docente/reporte-grupal con filtros por simulacro
     - Implementar GET /docente/estudiante/{id} con validación de grupo
-    - _Requisitos: 7.1, 8.1, 8.3_
+    - _Requisitos: 7.1, 7.3, 7.4, 7.5, 8.1, 8.3, 8.4_
   
   - [ ] 10.4 Implementar routers por rol - Dirección
     - Crear GET /direccion/resumen solo con datos agregados
     - Validar que no se exponen datos individuales
-    - _Requisitos: 9.1, 9.2, 9.3_
+    - _Requisitos: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7_
   
   - [ ] 10.5 Implementar router de chat para lenguaje natural
     - Crear POST /chat con integración Gemini + MCP
     - Validar orden de llamadas (Gemini primero, MCP después)
-    - _Requisitos: 10.1, 10.6_
+    - _Requisitos: 4.3, 5.3, 5.4, 6.2, 10.1, 10.6_
   
   - [ ]* 10.6 Escribir pruebas de integración para API
     - Probar flujos completos por rol con TestClient
@@ -199,19 +209,19 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     - Crear estudiante.js con consultas de reporte individual
     - Implementar comparación entre simulacros
     - Añadir interfaz de chat en lenguaje natural
-    - _Requisitos: 4.1, 5.1, 6.1, 10.1_
+    - _Requisitos: 4.1, 4.3, 4.4, 5.1, 5.3, 5.4, 5.5, 5.6, 5.7, 6.1, 6.2, 6.3, 6.4, 6.5, 10.1_
   
   - [ ] 12.4 Implementar interfaz del docente
     - Crear docente.js con reportes grupales
     - Implementar vista de detalle de estudiantes
     - Añadir filtros por simulacro y grupo
-    - _Requisitos: 7.1, 8.1, 8.6_
+    - _Requisitos: 7.1, 7.4, 7.5, 8.1, 8.4, 8.6_
   
   - [ ] 12.5 Implementar interfaz de la dirección
     - Crear direccion.js solo con datos agregados
     - Implementar resumen institucional por simulacro
     - Validar que no se muestran datos individuales
-    - _Requisitos: 9.1, 9.2, 9.4_
+    - _Requisitos: 9.1, 9.2, 9.4, 9.5, 9.6, 9.7_
 
 - [ ] 13. Crear base de datos SQLite con datos simulados
   - [x] 13.1 Crear esquema de base de datos
@@ -242,7 +252,7 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
   - [ ] 15.1 Ejecutar suite completa de pruebas
     - Verificar todas las pruebas unitarias y de propiedades
     - Ejecutar pruebas de integración con mocks
-    - Validar cobertura de código mínima (85%)
+    - Validar cobertura de código mínima (**PENDIENTE: fuente y aprobación del umbral**)
     - _Requisitos: Todos_
   
   - [ ]* 15.2 Pruebas de humo y seguridad
@@ -279,7 +289,7 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
     { "id": 3, "tasks": ["2.2", "2.4", "4.3", "5.1"] },
     { "id": 4, "tasks": ["5.2", "5.3", "8.1"] },
     { "id": 5, "tasks": ["5.4", "6.1", "8.2"] },
-    { "id": 6, "tasks": ["6.2", "6.3", "8.3", "9.2"] },
+    { "id": 6, "tasks": ["5.5", "6.2", "6.3", "8.3", "9.2"] },
     { "id": 7, "tasks": ["6.4", "6.5", "10.1"] },
     { "id": 8, "tasks": ["6.6", "10.2", "10.3", "10.4"] },
     { "id": 9, "tasks": ["10.5", "12.1"] },
@@ -290,3 +300,14 @@ Este plan implementa el Asistente de Retroalimentación para Simulacros de Admis
   ]
 }
 ```
+
+> **PENDIENTE:** El JSON anterior agrupa tareas por olas de trabajo, pero no declara aristas de dependencia entre tareas. No permite verificar dependencias hacia identificadores inexistentes ni ciclos. El equipo debe proporcionar o aprobar las dependencias antes de afirmar que el grafo está validado. Las marcas `[x]` existentes se conservan como estado registrado y no se modifican en esta auditoría.
+
+> **PENDIENTE:** La pila descrita por estas tareas (Python/FastAPI/SQLite) contradice `tech.md` y los ADR de framework/BD existentes. No ejecutar ni tratar las tareas específicas de plataforma como aprobadas hasta resolver esa contradicción.
+
+## Historial de cambios
+
+| Fecha | Hallazgo | Cambio |
+|---|---|---|
+| 2026-10-09 | Criterios de aceptación sin referencias de tarea; grafo representado como olas sin dependencias; cifra de cobertura sin fuente y pila en conflicto. | Añadí referencias y alcance explícito para los criterios huérfanos, una tarea de orientación, y notas `PENDIENTE` para dependencias y cobertura. Conservé las marcas de progreso existentes y señalé la pila contradictoria sin ejecutar tareas. |
+| 2026-10-09 | La tarea del cliente Gemini repetía un timeout sin indicar que su fuente/aprobación estaba pendiente. | Marqué el umbral de 8 segundos como pendiente, alineado con la nota global de `requirements.md`; no cambié el valor ni ejecuté la tarea. |

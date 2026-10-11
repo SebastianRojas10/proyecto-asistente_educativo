@@ -1,3 +1,5 @@
+-- PENDIENTE: DDL candidato MySQL/MariaDB. requirements/tasks nombran SQLite y
+-- data/schema.sql mantiene otro DDL; no ejecutar hasta aprobar motor/esquema.
 CREATE DATABASE IF NOT EXISTS asistente_cni
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
@@ -158,3 +160,6 @@ CREATE TABLE IF NOT EXISTS registro_acceso (
     ON UPDATE RESTRICT ON DELETE SET NULL
 ) ENGINE=InnoDB
   COMMENT='Componente propietario: Middleware de Autenticación (extensión de auditoría); registra accesos sin almacenar resultados personales (Req. 2.3, 8.5, 11.3, 11.4)';
+
+-- Historial de cambios
+-- 2026-10-09: DDL marcado como candidato PENDIENTE ante la discrepancia SQLite/MySQL.

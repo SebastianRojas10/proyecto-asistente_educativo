@@ -1,5 +1,7 @@
 # Documento de Arquitectura de Software
 
+> **PENDIENTE:** Las ponderaciones, puntuaciones, totales y afirmaciones cuantitativas de esta comparación carecen de fuentes o método de validación citados. No deben emplearse para cerrar la selección de framework. Esta copia duplica ADR-001 con una decisión diferente.
+
 ## Tarea 1: Comparativa y Selección del Estilo Arquitectónico
 
 ### 1. Supuestos
@@ -29,30 +31,30 @@
 
 ### 3. Recomendación
 
-Se recomienda el **Monolito modular por dominio, renderizado en servidor (b)**. Los dos drivers de mayor peso en la decisión fueron la **Seguridad (confidencialidad por rol)** y la **Restricción de integridad / MCP de solo lectura**, ya que el aislamiento en módulos independientes dentro del servidor ofrece un control hermético de accesos. Esta decisión debe revisarse si la plataforma requiere interacciones reactivas complejas en tiempo real o el desarrollo paralelo de una aplicación móvil.
+La evaluación provisional favorece el **Monolito modular por dominio, renderizado en servidor (b)**. La recomendación cuantitativa queda **PENDIENTE** de validar las ponderaciones, puntuaciones y fuentes indicadas arriba. El estilo no determina por sí solo el framework.
 
 ### 4. Punto de Integración Futura
 
-El agente conversacional (Unidad 3) se conectará como un **módulo de dominio independiente** dentro del monolito. Interactuará mediante servicios de aplicación internos con los módulos de expediente y documentos, procesando las consultas a Gemini desde el backend sin exponer credenciales ni lógica directa al cliente.
+El agente conversacional (Unidad 3) se conectará como un **módulo de dominio independiente** dentro del monolito. Interactuará con los servicios de reportes mediante servicios de aplicación internos y procesará las consultas a Gemini desde el backend sin exponer credenciales ni lógica directa al cliente. La habilitación de MCP antes o durante esa unidad queda **PENDIENTE** por conflicto entre `product.md` y `tech.md`.
 
 ---
 
 ## Tarea 2: Registro de Decisión de Arquitectura (ADR-001)
 
 ### Título
-**ADR-001: Seleccionar CodeIgniter 4 para el Monolito Modular**
+**ADR-001: Selección del framework — decisión PENDIENTE**
 
 ### Estado
-Propuesto.
+PENDIENTE: este documento propone CodeIgniter 4, mientras `evaluaci_n_arquitect_nica_y_adr_001.md` registra Laravel como aceptado. El framework en `tech.md` también está pendiente.
 
 ### Contexto
-Para construir el monolito modular por dominio, se requiere elegir un framework PHP que permita completar el desarrollo en un plazo estricto de 8 semanas. Esta decisión está gobernada por los drivers de latencia en consultas ($\le 5\text{ s}$), mantenibilidad por aislamiento de módulos y control riguroso de autorización por rol. El proyecto se ejecuta en un entorno acotado con un equipo de 4 personas sin experiencia previa en frameworks, usando cuentas gratuitas, generación asistida por Kiro y despliegue local obligatorio sobre XAMPP.
+Para construir el monolito modular por dominio, se requiere elegir un framework. El framework y runtime quedan **PENDIENTE** de decisión coherente con steering y requisitos. Las referencias de plazo, tamaño de equipo y latencia incluidas en esta comparación carecen de fuente o aprobación identificable y quedan **PENDIENTE**; no justifican una selección.
 
 ### Alternativas consideradas
 
 #### 1. Laravel (versión estable vigente)
 * **Ventajas:** Módulos bien definidos y excelente compatibilidad con Kiro debido a su vasta documentación.
-* **Desventajas:** Alta curva de aprendizaje para principiantes en 8 semanas y sobrecarga de configuración en XAMPP.
+* **Desventajas:** La curva de aprendizaje y el esfuerzo de configuración quedan **PENDIENTE** de evaluación con el equipo.
 * **Requisitos XAMPP:** Composer sí `[VERIFICAR]`, PHP versión estable vigente `[VERIFICAR]`, carpeta pública `/public` configurada en VirtualHost `[VERIFICAR]`.
 
 #### 2. CodeIgniter 4
@@ -60,18 +62,22 @@ Para construir el monolito modular por dominio, se requiere elegir un framework 
 * **Desventajas:** Requiere disciplina interna del equipo para estructurar manualmente el aislamiento estricto de módulos.
 * **Requisitos XAMPP:** Composer sí `[VERIFICAR]`, PHP versión estable vigente `[VERIFICAR]`, carpeta pública `/public` configurada en la raíz del servidor `[VERIFICAR]`.
 
-#### 3. PHP 8 con estructura MVC propia sin framework
+#### 3. PHP (versión PENDIENTE) con estructura MVC propia sin framework
 * **Ventajas:** Cero dependencias externas y despliegue directo e inmediato en la carpeta `htdocs`.
-* **Desventajas:** Reinventar enrutamiento, ORM y seguridad consume tiempo crítico del plazo de 8 semanas y aumenta el riesgo de fallos de autorización por rol.
+* **Desventajas:** El esfuerzo de construir enrutamiento, ORM y seguridad queda **PENDIENTE** de estimación; no se usa una duración sin fuente.
 * **Requisitos XAMPP:** Composer no `[VERIFICAR]`, PHP versión estable vigente `[VERIFICAR]`, raíz pública directa en `htdocs/proyecto` `[VERIFICAR]`.
 
 ### Decisión
-Se decide adoptar CodeIgniter 4 como el framework de aplicación para construir el monolito modular por dominio.
+**PENDIENTE:** no seleccionar CodeIgniter 4 ni otro framework hasta resolver la discrepancia con el ADR-001 que registra Laravel como aceptado, `tech.md` y las tareas que nombran Python/FastAPI.
 
 ### Consecuencias
-* **Positivas:** Rápida adopción por el equipo sin experiencia, alta velocidad de respuesta ($\le 5\text{ s}$) y bajo costo de configuración en XAMPP.
-* **Negativas:** La separación por dominios debe gestionarse mediante espacios de nombres y reglas internas sin relying en una arquitectura de paquetes rígida.
-* **Deuda técnica:** Implementación artesanal del aislamiento entre módulos, lo cual exige revisiones de código periódicas durante las 8 semanas.
+**PENDIENTE:** consecuencias y deuda aceptada dependen de la selección del framework.
 
 ### Criterio de reversión
-Si antes de la semana 7 la asistencia de Kiro para estructurar módulos en CodeIgniter 4 genera inconsistencias severas o si la configuración en XAMPP toma más de 3 días bloqueando al equipo, la decisión se revertirá hacia PHP 8 nativo con estructura MVC propia.
+**PENDIENTE:** definir después de resolver el framework y validar las cifras de plazo/rendimiento.
+
+## Historial de cambios
+
+| Fecha | Hallazgo | Cambio |
+|---|---|---|
+| 2026-10-09 | El documento duplicaba ADR-001 y su estado/decisión de CodeIgniter 4 contradice el otro ADR-001 (Laravel) y `tech.md`; varias cifras tampoco tienen fuente. | Suspendí la decisión, consecuencias y reversión como `PENDIENTE`; señalé la falta de fuentes y la duplicación conflictiva del identificador. |

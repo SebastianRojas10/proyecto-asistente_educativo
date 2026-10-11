@@ -1,5 +1,7 @@
 # Documento de Arquitectura de Software
 
+> **PENDIENTE:** Las ponderaciones, puntuaciones, totales y afirmaciones cuantitativas de esta comparación carecen de fuentes o método de validación citados. No deben emplearse para cerrar la selección de framework. También queda por confirmar si los módulos llamados “expediente” y “documentos” pertenecen a este producto.
+
 ## Tarea 1: Comparativa y Selección del Estilo Arquitectónico
 
 ### 1. Supuestos
@@ -29,11 +31,11 @@
 
 ### 3. Recomendación
 
-Se recomienda el **Monolito modular por dominio, renderizado en servidor (b)**. Los dos drivers de mayor peso en la decisión fueron la **Seguridad (confidencialidad por rol)** y la **Restricción de integridad / MCP de solo lectura**, ya que el aislamiento en módulos independientes dentro del servidor ofrece un control hermético de accesos. Esta decisión debe revisarse si la plataforma requiere interacciones reactivas complejas en tiempo real o el desarrollo paralelo de una aplicación móvil.
+La evaluación provisional favorece el **Monolito modular por dominio, renderizado en servidor (b)**. La recomendación cuantitativa queda **PENDIENTE** de validar las ponderaciones, puntuaciones y fuentes indicadas arriba. El estilo no determina por sí solo el framework.
 
 ### 4. Punto de Integración Futura
 
-El agente conversacional (Unidad 3) se conectará como un **módulo de dominio independiente** dentro del monolito. Interactuará mediante servicios de aplicación internos con los módulos de expediente y documentos, procesando las consultas a Gemini desde el backend sin exponer credenciales ni lógica directa al cliente.
+El agente conversacional (Unidad 3) se conectará como un **módulo de dominio independiente** dentro del monolito. Interactuará con los servicios de reportes mediante servicios de aplicación internos y procesará las consultas a Gemini desde el backend sin exponer credenciales ni lógica directa al cliente. La habilitación de MCP antes o durante esa unidad queda **PENDIENTE** por conflicto entre `product.md` y `tech.md`.
 
 ## Tarea 2: Registro de Decisión de Arquitectura (ADR-001)
 
@@ -43,7 +45,7 @@ El agente conversacional (Unidad 3) se conectará como un **módulo de dominio i
 
 ### Estado
 
-**Aceptado**
+**PENDIENTE:** este documento registra Laravel como seleccionado, mientras el otro documento ADR-001 propone CodeIgniter 4. `tech.md` también deja la selección pendiente. No hay una decisión canónica.
 
 ### Contexto
 
@@ -85,7 +87,7 @@ Se requiere seleccionar el framework base en PHP para la construcción del monol
 
   * Menor disponibilidad de herramientas avanzadas para organizar arquitecturas modulares estrictas por dominio.
 
-#### 3. PHP 8 con MVC Propio
+#### 3. PHP (versión objetivo PENDIENTE) con MVC Propio
 
 * **Ventajas:**
 
@@ -99,14 +101,19 @@ Se requiere seleccionar el framework base en PHP para la construcción del monol
 
 ### Decisión
 
-En la evaluación técnica inicial, **Laravel (versión estable vigente)** y **CodeIgniter 4 (versión estable vigente)** empatan en términos de factibilidad técnica general. Se aplica como criterio de desempate la potencia de su ORM y las facilidades que ofrece para la separación estricta por módulos de dominio y testing automatizado, seleccionando **Laravel (versión estable vigente)**.
+**PENDIENTE:** no seleccionar Laravel ni CodeIgniter 4 hasta que el equipo resuelva la discrepancia con el otro documento ADR-001, `tech.md` y las tareas que indican Python/FastAPI.
 
 ### Consecuencias y Deuda Aceptada
 
-* **Consecuencias positivas:** Aceleración en el desarrollo gracias a su ecosistema, alta mantenibilidad y facilidades para estructurar módulos independientes.
-
-* **Deuda aceptada:** Mayor huella de memoria en ejecución y la complejidad de preparar la configuración inicial del entorno local sobre XAMPP `[VERIFICAR]`.
+**PENDIENTE:** consecuencias y deuda aceptada dependen de la selección del framework.
 
 ### Criterio de Reversión
 
-Si durante la fase de puesta en marcha (antes de la **semana 7**) la instalación o ejecución sobre XAMPP `[VERIFICAR]` presenta bloqueos insuperables de entorno o degradación severa de rendimiento, se revertirá la decisión hacia **CodeIgniter 4 (versión estable vigente)**.
+**PENDIENTE:** definir un criterio de reversión después de aprobar el framework y aportar fuente para sus umbrales.
+
+## Historial de cambios
+
+| Fecha | Hallazgo | Cambio |
+|---|---|---|
+| 2026-10-09 | Este ADR-001 registra Laravel como aceptado, mientras otro ADR-001 propone CodeIgniter 4; el steering deja el framework sin resolver y hay cifras sin fuente. | Marqué la decisión y el criterio de reversión como `PENDIENTE`, señalé las cifras no sustentadas y eliminé la afirmación de que la selección es canónica. |
+| 2026-10-09 | La alternativa PHP aún fijaba una versión sin fuente validada. | Dejé la versión objetivo de PHP como `PENDIENTE` sin seleccionar runtime. |
