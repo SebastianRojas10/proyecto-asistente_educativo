@@ -1,0 +1,4 @@
+{{-- Historia: H-07, H-09 --}}
+<div class="tabla-scroll"><table><caption class="sr-only">Errores agregados por tema</caption><thead><tr><th scope="col">Tema</th><th scope="col">Porcentaje de error</th><th scope="col">Errores / respuestas</th><th scope="col">Sin responder</th></tr></thead><tbody>
+@foreach($resultado['temas'] as $t)<tr><th scope="row">{{ $t['nombre'] }}</th><td>@if($t['error'] !== null)<div class="porcentaje"><meter min="0" max="100" value="{{ $t['error'] }}" aria-label="Error en {{ $t['nombre'] }}"></meter><b>{{ number_format($decimales === 2 ? $t['error_institucional'] : $t['error'], $decimales) }} %</b></div>@else<span class="muted">Sin respuestas</span>@endif</td><td>{{ $t['incorrectas'] }} / {{ $t['respondidas'] }}</td><td>{{ $t['sin_responder'] }}</td></tr>@endforeach
+</tbody></table></div>

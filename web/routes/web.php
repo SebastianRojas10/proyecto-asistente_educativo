@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AccesoController;
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\DocenteController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/inicio');
@@ -13,4 +14,7 @@ Route::middleware(['auth', 'vigente'])->group(function () {
     Route::get('/inicio', [AccesoController::class, 'inicio'])->name('inicio');
     Route::get('/estudiante/reporte/{simulacro?}', [EstudianteController::class, 'reporte'])
         ->where('simulacro', '[A-Za-z0-9-]{1,40}')->name('estudiante.reporte');
+    Route::get('/docente/grupos', [DocenteController::class, 'grupos'])->name('docente.grupos');
+    Route::get('/docente/grupos/{grupo}/simulacros/{simulacro?}', [DocenteController::class, 'reporte'])
+        ->where(['grupo' => '[A-Za-z0-9-]{1,30}', 'simulacro' => '[A-Za-z0-9-]{1,40}'])->name('docente.reporte');
 });
