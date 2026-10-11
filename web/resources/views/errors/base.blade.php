@@ -1,0 +1,2 @@
+{{-- Historia: H-01, H-04, H-07, H-09, H-11 --}}
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>@yield('codigo') · Asistente CNI</title><link rel="stylesheet" href="/css/s7.css"></head><body><main class="contenedor"><section class="panel vacio"><p class="etiqueta">ASISTENTE CNI · @yield('codigo')</p><h1>@yield('titulo')</h1><p>@yield('mensaje')</p><a class="boton" href="/inicio">Volver al inicio</a></section></main></body></html>

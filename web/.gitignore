@@ -22,3 +22,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+.env.*
+!.env.example
+/storage/app/private/*
+!/storage/app/private/.gitignore

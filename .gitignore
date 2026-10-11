@@ -74,3 +74,7 @@ htmlcov/
 *.temp
 temp/
 tmp/
+# S7: credenciales y evidencia local
+.env.*
+!.env.example
+*.local
