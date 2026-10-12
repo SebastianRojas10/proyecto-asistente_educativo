@@ -1,3 +1,5 @@
+> **Laboratorio S7 — rama laboratorio-s7:** la implementación Laravel está en web/. Consulta [la guía de ejecución y demostración](docs/GUIA_S7.md), [la arquitectura](docs/arquitectura/s7.md) y [las evidencias](docs/evidencias/RESULTADOS.md). Trabajado con VS Code sobre una base ficticia aislada. Las secciones Python que siguen son antecedentes conservados del equipo.
+
 # Asistente de Retroalimentación para Simulacros de Admisión (CNI)
 
 Sistema web FastAPI que automatiza el procesamiento y clasificación de resultados de simulacros de admisión del Colegio Nacional de Ica. Permite a estudiantes de 5.º de secundaria consultar sus errores por tema, a docentes revisar el rendimiento grupal, y a la dirección acceder a resúmenes institucionales agregados.
