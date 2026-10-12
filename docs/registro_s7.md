@@ -21,7 +21,7 @@ Solicitud del usuario: desarrollar el laboratorio completo con VS Code, omitir e
 | Evitar escrituras durante las consultas | Usuario SQL SELECT, sesiones/caché en archivos, sin migraciones | Configuración y pruebas de lectura |
 | Cubrir reporte individual, grupal e institucional | Rutas, controladores, modelos, cálculos y vistas por historia | Tres commits feat(H-xx) |
 | Verificar fallos y accesos | 40 pruebas, 158 aserciones aprobadas; navegación de tres perfiles | docs/evidencias/RESULTADOS.md |
-| Subir trabajo aislado a GitHub | Conexión rechazó escritura con 403 y Git local no tenía credenciales | Se entrega rama local y bundle; publicación pendiente |
+| Subir trabajo aislado a GitHub | La rama laboratorio-s7 quedó publicada en upstream | Disponible para revisión e integración posterior a develop |
 
 ### Registro de uso de IA
 
@@ -31,13 +31,16 @@ El usuario dio autorización general para implementar. Se empleó asistencia de 
 
 | Integrante real | Archivo leído y commit | Qué comprendió o corrigió | Fecha |
 |---|---|---|---|
-| Pendiente | Pendiente | Pendiente | Pendiente |
+| Malasquez Laredo Jimmy Alexander | web/routes/web.php — b68fa5d | Comprendió que web.php define las rutas del sistema, envía cada URL a su controlador, protege las rutas privadas con los middleware auth y vigente y restringe los parámetros recibidos. | 2026-10-11 |
+| Alvarez Calagua Nia Elizabeth | Pendiente | Pendiente | Pendiente |
+| Rojas Castillo Sebastian Jaren | Pendiente | Pendiente | Pendiente |
+| Oscar Andres Yaranga Huamanchaqui | Pendiente | Pendiente | Pendiente |
 
 ### Deuda y cierre
 
-- E3: falta el repositorio del otro equipo y la revisión individual escrita por cada integrante; usar revision_cruzada_s7.md.
+- E3 no se incluye en esta entrega según la indicación comunicada al equipo; no se fabrican revisiones cruzadas no realizadas.
 - Confirmar con el docente la adaptación VS Code y la entrega en rama separada, dado que la guía menciona develop. No se fusionó por la instrucción del solicitante.
-- Completar nombres del equipo, lectores, hallazgos recibidos y entrega en la plataforma académica.
+- Completar las lecturas y validaciones reales de Nia, Sebastián y Oscar antes del cierre final.
 - Publicar la rama con una cuenta GitHub con escritura. La rama remota y el PR no están creados.
 - Funcionalidad futura: comparación, orientación, detalle individual docente, Gemini/MCP y administración. Auditoría SQL, TLS y revisión con datos reales quedan fuera de esta demostración.
 
